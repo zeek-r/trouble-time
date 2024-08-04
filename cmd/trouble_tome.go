@@ -74,7 +74,7 @@ func (app *App) Exec() {
 	// Generate runbook based on format
 	var output string
 	switch strings.ToLower(*outputFormat) {
-	case "markdown":
+	case "markdown", "md":
 		output, err = generateMarkdownRunbook(runbook, templates)
 	case "html":
 		output, err = generateHTMLRunbook(runbook, templates)

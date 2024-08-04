@@ -1,4 +1,4 @@
-package main
+package cmd
 
 import (
 	"encoding/json"
@@ -35,7 +35,13 @@ var extensions = map[string]string{
 	"html":     "html",
 }
 
-func main() {
+type App struct{}
+
+func NewApp() *App {
+	return &App{}
+}
+
+func (app *App) Exec() {
 	// Define command-line flags
 	jsonFile := flag.String("json", "", "Path to the JSON source file")
 	outputFormat := flag.String("format", "markdown", "Output format (markdown or html)")

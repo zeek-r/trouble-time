@@ -16,5 +16,40 @@ Trouble Tome is a tool designed to automate the creation of runbooks. It generat
 - Clone the repo
 - Explore Makefile(build, run, test)
 
-### Help Menu, not the way of samurai
+### How does it work?
+- Create a runbook json with the following format.
+```json
+{
+    "title": "Debezium CDC Connector Issue Resolution Runbook",
+    "steps": [
+        {
+            "title": "Summary",
+            "content": "What happened?"
+        },
+        {
+            "title": "Dependencies Affected",
+            "content": "What'll be affected due to this incident?"
+        },
+        {
+            "title": "Tools Required",
+            "content": "What do you need to fix this incident?"
+        },
+        {
+            "title": "Mitigation Steps",
+            "content": "How do you fix the incident?"
+        },
+        {
+            "title": "Post Incident Steps",
+            "content": "What needs to be done after the incident?"
+        },
+        {
+            "title": "Important Resources",
+            "content": "Anything more?"
+        }
+    ]
+}
+```
+
+### Usage
+#### Help Menu
 > trouble-tome --help

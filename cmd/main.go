@@ -26,6 +26,7 @@ type Runbook struct {
 const BinaryName = "troubletome"
 const MarkDownTemplate = "markdown.tmpl"
 const HTMLTemplate = "html.tmpl"
+const DefaultOutputFile = "runbook"
 
 var TemplatesDir = "templates"
 
@@ -38,7 +39,7 @@ func main() {
 	// Define command-line flags
 	jsonFile := flag.String("json", "", "Path to the JSON source file")
 	outputFormat := flag.String("format", "markdown", "Output format (markdown or html)")
-	outputFile := flag.String("output", "runbook.md", "Path to the output file")
+	outputFile := flag.String("output", "runbook", "Path to the output file")
 
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "troubletome: A tool for generating incident management runbooks\n\n")
@@ -80,8 +81,8 @@ func main() {
 	}
 
 	// Write output to file]
-	outputF := fmt.Sprintf("%s.%s", *jsonFile, extensions[*outputFormat])
-	if outputFile != nil {
+	outputF := fmt.Sprintf("%s.%s", "runbook", extensions[*outputFormat])
+	if outputFile != nil && *outputFile != "" && *outputFile != DefaultOutputFile {
 		outputF = *outputFile
 	}
 
@@ -90,7 +91,7 @@ func main() {
 		log.Fatalf("Error writing output file: %v", err)
 	}
 
-	fmt.Printf("Runbook successfully generated: %s\n", *outputFile)
+	fmt.Printf("Runbook successfully generated: %s\n", outputF)
 }
 
 func readRunbookFromJSON(filePath string) (Runbook, error) {

@@ -1,0 +1,16 @@
+# {{.Title}}
+
+## Table of Contents
+{{range $index, $step := .Steps}}
+{{inc $index}}. [{{$step.Title}}](#{{slug $step.Title}})
+{{end}}
+
+{{range $index, $step := .Steps}}
+## {{$step.Title}}
+
+{{$step.Content}}
+
+{{if not (last $index $.Steps)}}[Next: {{(index $.Steps (inc $index)).Title}}](#{{slug (index $.Steps (inc $index)).Title}}){{end}}
+{{if not (first $index)}}
+[Previous: {{(index $.Steps (dec $index)).Title}}](#{{slug (index $.Steps (dec $index)).Title}}){{end}}
+{{end}}

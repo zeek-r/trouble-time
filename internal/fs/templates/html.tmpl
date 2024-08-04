@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+        h1 { color: #333; }
+        h2 { color: #666; }
+        .navigation { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>{{.Title}}</h1>
+    
+    <h2>Table of Contents</h2>
+    <ul>
+    {{range $index, $step := .Steps}}
+        <li><a href="#{{slug $step.Title}}">{{$step.Title}}</a></li>
+    {{end}}
+    </ul>
+
+    {{range $index, $step := .Steps}}
+    <h2 id="{{slug $step.Title}}">{{$step.Title}}</h2>
+    <div>{{$step.Content}}</div>
+    <div class="navigation">
+        {{if not (last $index $.Steps)}}<a href="#{{slug (index $.Steps (inc $index)).Title}}">Next: {{(index $.Steps (inc $index)).Title}}</a>{{end}}
+        {{if not (first $index)}} - <a href="#{{slug (index $.Steps (dec $index)).Title}}">Previous: {{(index $.Steps (dec $index)).Title}}</a>{{end}}
+    </div>
+    {{end}}
+</body>
+</html>

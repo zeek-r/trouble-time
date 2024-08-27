@@ -49,6 +49,7 @@ Trouble Tome is a tool designed to automate the creation of runbooks. It generat
     ]
 }
 ```
+- Want UI mode for JSON? go [here](https://zeek-r.github.io/trouble-tome)
 
 ### Usage
 #### Help Menu

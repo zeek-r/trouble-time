@@ -93,7 +93,7 @@
 
         addStepBtn.addEventListener('click', addStep);
         generateJSONBtn.addEventListener('click', () => generateOutput('json'));
-        generateYAMLBtn.addEventListener('click', () => generateOutput('yaml'));
+        // generateYAMLBtn.addEventListener('click', () => generateOutput('yaml'));
         stepsContainer.addEventListener('click', (e) => {
             if (e.target.classList.contains('remove-step')) {
                 e.target.closest('.step').remove();

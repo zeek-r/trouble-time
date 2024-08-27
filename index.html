@@ -40,6 +40,8 @@
             cursor: pointer;
             border-radius: 4px;
             transition: background-color 0.3s;
+            margin-right: 10px;
+            margin-bottom: 10px;
         }
         button:hover {
             background-color: #2980b9;
@@ -80,7 +82,8 @@
         </div>
         <button id="addStep">+ Add Step</button>
         <button id="generateJSON">Generate JSON</button>
-        <!-- <button id="generateYAML">Generate YAML</button> -->
+        <button id="generateYAML">Generate YAML</button>
+        <button id="generateMD">Generate Markdown</button>
         <pre id="output"></pre>
     </div>
 
@@ -88,12 +91,14 @@
         const addStepBtn = document.getElementById('addStep');
         const generateJSONBtn = document.getElementById('generateJSON');
         const generateYAMLBtn = document.getElementById('generateYAML');
+        const generateMDBtn = document.getElementById('generateMD');
         const stepsContainer = document.getElementById('steps');
         const output = document.getElementById('output');
 
         addStepBtn.addEventListener('click', addStep);
         generateJSONBtn.addEventListener('click', () => generateOutput('json'));
-        // generateYAMLBtn.addEventListener('click', () => generateOutput('yaml'));
+        generateYAMLBtn.addEventListener('click', () => generateOutput('yaml'));
+        generateMDBtn.addEventListener('click', () => generateOutput('md'));
         stepsContainer.addEventListener('click', (e) => {
             if (e.target.classList.contains('remove-step')) {
                 e.target.closest('.step').remove();
@@ -124,14 +129,44 @@
                 output.textContent = JSON.stringify(data, null, 2);
             } else if (format === 'yaml') {
                 output.textContent = jsyaml.dump(data);
+            } else if (format === 'md') {
+                output.textContent = generateMarkdown(data);
             }
+        }
+
+        function generateMarkdown(data) {
+            let md = `# ${data.title}\n\n## Table of Contents\n\n`;
+            
+            data.steps.forEach((step, index) => {
+                const anchor = step.title.toLowerCase().replace(/[^\w]+/g, '-');
+                md += `${index + 1}. [${step.title}](#${anchor})\n\n`;
+            });
+
+            md += '\n';
+
+            data.steps.forEach((step, index) => {
+                const anchor = step.title.toLowerCase().replace(/[^\w]+/g, '-');
+                md += `## ${step.title}\n\n${step.content}\n\n`;
+
+                if (index < data.steps.length - 1) {
+                    const nextAnchor = data.steps[index + 1].title.toLowerCase().replace(/[^\w]+/g, '-');
+                    md += `[Next: ${data.steps[index + 1].title}](#${nextAnchor})\n\n`;
+                }
+
+                if (index > 0) {
+                    const prevAnchor = data.steps[index - 1].title.toLowerCase().replace(/[^\w]+/g, '-');
+                    md += `[Previous: ${data.steps[index - 1].title}](#${prevAnchor})\n\n`;
+                }
+            });
+
+            return md;
         }
 
         // Initialize with default steps
         const defaultSteps = [
-            "Summary here",
-            "Step 1 here",
-            "Step 2 here",
+            "Summary",
+            "Dependencies Affected",
+            "Tools Required",
             "Mitigation Steps",
             "Post Incident Steps",
             "Important Resources"

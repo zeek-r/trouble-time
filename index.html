@@ -148,14 +148,20 @@
                 const anchor = step.title.toLowerCase().replace(/[^\w]+/g, '-');
                 md += `## ${step.title}\n\n${step.content}\n\n`;
 
+                let navigationLinks = [];
+
                 if (index < data.steps.length - 1) {
                     const nextAnchor = data.steps[index + 1].title.toLowerCase().replace(/[^\w]+/g, '-');
-                    md += `[Next: ${data.steps[index + 1].title}](#${nextAnchor})\n\n`;
+                    navigationLinks.push(`[Next: ${data.steps[index + 1].title}](#${nextAnchor})`);
                 }
 
                 if (index > 0) {
                     const prevAnchor = data.steps[index - 1].title.toLowerCase().replace(/[^\w]+/g, '-');
-                    md += `[Previous: ${data.steps[index - 1].title}](#${prevAnchor})\n\n`;
+                    navigationLinks.push(`[Previous: ${data.steps[index - 1].title}](#${prevAnchor})`);
+                }
+
+                if (navigationLinks.length > 0) {
+                    md += navigationLinks.join(' | ') + '\n\n';
                 }
             });
 

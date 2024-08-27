@@ -4,6 +4,7 @@ Trouble Tome is a tool designed to automate the creation of runbooks. It generat
 
 ## Features
 
+- **Generates Interactive runbook:** [UI mode](https://zeek-r.github.io/trouble-tome)
 - **Automated Runbook Generation:** Converts JSON input into comprehensive runbooks.
 - **Multiple Output Formats:** Supports both Markdown and HTML outputs for flexible documentation needs.
 - **Structured JSON Input:** Easily define runbook content with a JSON structure.
@@ -49,7 +50,7 @@ Trouble Tome is a tool designed to automate the creation of runbooks. It generat
     ]
 }
 ```
-- Want UI mode for JSON? go [here](https://zeek-r.github.io/trouble-tome)
+- Too lazy, like me, to create json? go [here](https://zeek-r.github.io/trouble-tome)
 
 ### Usage
 #### Help Menu
